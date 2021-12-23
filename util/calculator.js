@@ -1,60 +1,40 @@
 export const initialState = {
-  showCaculator: '',
   currentValue: '0',
-  operator: null,
-  previousValue: null,
+  answer: '',
 };
 
 export const handleNumber = (value, state) => {
   if (state.currentValue === '0') {
     return {
       currentValue: `${value}`,
-      showCaculator: state.showCaculator.concat(`${value}`),
     };
   }
   return {
-    currentValue: `${state.currentValue}${value}`,
+    currentValue: `${state.currentValue}`.concat(`${value}`),
   };
 };
-
+export const handleOperator = (value, state) => {
+  if (state.answer !== '') {
+    return {
+      currentValue: `${state.answer}`.concat(`${value}`),
+    };
+  }
+  if (state.currentValue !== '0') {
+    return {
+      currentValue: `${state.currentValue}`.concat(`${value}`),
+    };
+  }
+};
 export const handleEqual = (state) => {
-  const { currentValue, previousValue, operator, showCaculator } = state;
+  const { currentValue } = state;
 
-  const current = parseFloat(currentValue);
-  const previous = parseFloat(previousValue);
-  const resetState = {
-    operator: null,
-    previousValue: null,
-  };
-
-  if (operator === '/') {
+  const ans = eval(currentValue);
+  if (currentValue !== '0') {
     return {
-      currentValue: previous / current,
-      ...resetState,
+      currentValue: currentValue,
+      answer: ans,
     };
   }
-
-  if (operator === '*') {
-    return {
-      currentValue: previous * current,
-      ...resetState,
-    };
-  }
-
-  if (operator === '+') {
-    return {
-      currentValue: previous + current,
-      ...resetState,
-    };
-  }
-
-  if (operator === '-') {
-    return {
-      currentValue: previous - current,
-      ...resetState,
-    };
-  }
-
   return state;
 };
 
@@ -63,12 +43,7 @@ const calculator = (type, value, state) => {
     case 'number':
       return handleNumber(value, state);
     case 'operator':
-      return {
-        operator: value,
-        previousValue: state.currentValue,
-        currentValue: '0',
-        showCaculator: state.showCaculator.concat(value),
-      };
+      return handleOperator(value, state);
     case 'equal':
       return handleEqual(state);
     case 'clear':

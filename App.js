@@ -12,15 +12,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   calculate: {
-    color: '#fff',
-    fontSize: 20,
+    color: '#DD0000',
+    fontSize: 50,
     textAlign: 'right',
     marginRight: 20,
     marginBottom: 10,
   },
   value: {
     color: '#fff',
-    fontSize: 40,
+    fontSize: 30,
     textAlign: 'right',
     marginRight: 20,
     marginBottom: 10,
@@ -39,10 +39,9 @@ export default class App extends Component {
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
         <SafeAreaView>
-          <Text style={styles.calculate}>{this.state.showCaculator}</Text>
-          <Text style={styles.value}>
-            {parseFloat(this.state.currentValue).toLocaleString()}
-          </Text>
+          <Text style={styles.value}>{this.state.currentValue}</Text>
+          <Text style={styles.calculate}>{this.state.answer}</Text>
+
           <Row>
             <Button
               text="C"
@@ -108,7 +107,7 @@ export default class App extends Component {
             <Button text="." onPress={() => this.handleTap('number', '.')} />
             <Button
               text="="
-              theme="accent"
+              theme="buttonEqual"
               onPress={() => this.handleTap('equal')}
             />
           </Row>

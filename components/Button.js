@@ -29,11 +29,11 @@ const styles = StyleSheet.create({
   },
   buttonLength: {
     flex: 1,
-    // position: 'absolute',
-    // left: 100,
-    // top: -20,
     justifyContent: 'flex-end',
     height: screen.width / 2 - 10,
+    backgroundColor: '#FF6699',
+  },
+  buttonEqual: {
     backgroundColor: '#FF6699',
   },
   buttonSecondary: {
@@ -61,6 +61,8 @@ export default ({ onPress, text, size, theme }) => {
     textStyles.push(styles.textSecondary);
   } else if (theme === 'accent') {
     buttonStyles.push(styles.buttonAccent);
+  } else if (theme === 'buttonEqual') {
+    buttonStyles.push(styles.buttonEqual);
   }
 
   return (
